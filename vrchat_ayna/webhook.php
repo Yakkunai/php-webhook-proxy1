@@ -7,17 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($data['name'], $data['looking'], $data['about'], $data['trap'])) {
+if (!isset($data['content'])) {
     http_response_code(400);
-    echo 'Champs manquants';
+    echo 'Contenu manquant';
     exit;
 }
 
 $webhookURL = getenv('DISCORD_WEBHOOK_URL');
 
-
 $payload = json_encode([
-    'content' => "📨 NOUVELLE FICHE ERP :\n🧑 VR Chat Name or ID: {$data['name']}\n🎯 Looking for: {$data['looking']}\n🗣 Something about you: {$data['about']}\n✅ Traps are not gay: {$data['trap']}"
+    'content' => $data['content']
 ]);
 
 $ch = curl_init($webhookURL);
