@@ -99,8 +99,20 @@
       const trap = document.querySelector('[name="traps_not_gay"]').checked ? "✔️" : "❌";
 
       const payload = {
-        content: `📨 NOUVELLE FICHE ERP :\n🧑 VR Chat Name or ID: ${name}\n🎯 Looking for: ${looking}\n🗣 Something about you: ${about}\n✅ Traps are not gay: ${trap}`
-      };
+  embeds: [{
+    title: "📨 Nouvelle fiche ERP reçue !",
+    color: 5814783,
+    fields: [
+      { name: "🧑 VR Chat Name or ID", value: name, inline: false },
+      { name: "🎯 Looking for", value: looking, inline: false },
+      { name: "🗣 About you", value: about, inline: false },
+      { name: "✅ Traps are not gay", value: trap, inline: false }
+    ],
+    footer: { text: "Envoyé automatiquement depuis aynawithme 💻" },
+    timestamp: new Date().toISOString()
+  }]
+};
+
 
       try {
         await fetch("https://php-webhook-proxy1.onrender.com/vrchat_ayna/webhook.php", {
