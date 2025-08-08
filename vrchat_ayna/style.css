@@ -283,7 +283,7 @@ button[type="submit"]::before {
 }
 
 .img-troll img {
-  max-width: 90%;
+  max-width: 60%;
   height: auto;
   opacity: 0;
   transform: translateY(30px);
