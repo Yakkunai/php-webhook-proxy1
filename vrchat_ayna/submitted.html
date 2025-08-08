@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submitted Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+    }
+
+    #video-background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(to bottom, #000000 0%, #2a0000 40%, #4b0000 70%, #660000 100%);
+      opacity: 0.4;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 90vw;
+      z-index: 1;
+    }
+
+    .typewriter {
+      font-size: 1.4rem;
+      white-space: pre-wrap;
+      border-right: 0.15em solid orange;
+      overflow: hidden;
+      color: white;
+      text-shadow: 2px 2px 8px black;
+      margin: 20px auto;
+      min-height: 2.5em;
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+
+    .submitted-image {
+      width: 300px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop id="video-background">
+    <source src="videoback.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div id="line1" class="typewriter"></div>
+    <div id="line2" class="typewriter"></div>
+    <img src="image04.gif" alt="Thanks" class="submitted-image" />
+    <div id="line3" class="typewriter"></div>
+  </div>
+
+  <script>
+    const lines = [
+      "Thanks for submitting your request!",
+      "If your information is valid, you should receive a friend request soon.",
+      "Enjoy your day :)"
+    ];
+
+    async function typeLine(id, text, delay=50) {
+      const el = document.getElementById(id);
+      el.textContent = "";
+      for (let i = 0; i < text.length; i++) {
+        el.textContent += text.charAt(i);
+        await new Promise(r => setTimeout(r, delay));
+      }
+    }
+
+    async function run() {
+      for(let i = 0; i < lines.length; i++) {
+        await typeLine("line"+(i+1), lines[i]);
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+
+    window.onload = run;
+  </script>
+</body>
+</html>

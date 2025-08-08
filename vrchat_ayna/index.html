@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>aynawithme</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <video autoplay muted loop id="video-background">
+  <source src="videoback.mp4" type="video/mp4">
+</video>
+
+<!-- Overlay rouge foncé -->
+<div class="background-overlay"></div>
+
+  <main>
+    <div class="top-banner" id="refresh-banner">
+      <img src="image01.png" alt="" />
+    </div>
+    
+    <div class="owo-image-row">
+  <div class="img-wrapper"><img src="pic1.png" alt="owo" class="owo-img"/></div>
+  <div class="img-wrapper"><img src="pic2.png" alt="whats" class="whats-img"/></div>
+  <div class="img-wrapper"><img src="pic3.png" alt="this" class="this-img"/></div>
+</div>
+
+
+   <div class="site-content hidden">
+
+  <!-- Formulaire -->
+  <form class="form form-animated" autocomplete="off" action="submitted.html" method="GET">
+    <input type="text" name="name" autocomplete="off" placeholder="VR CHAT NAME OR ID" required />
+    <input type="text" name="looking_for" autocomplete="off" placeholder="LOOKING FOR" required />
+    <input type="text" name="about_you" autocomplete="off" placeholder="SOMETHING ABOUT YOU" required />
+
+    <label class="checkbox-label">
+      <input type="checkbox" name="traps_not_gay" required />
+      TRAPS ARE NOT GAY
+    </label>
+
+    <button type="submit">SUBMIT</button>
+  </form>
+
+  <!-- Image optionnelle si utilisée -->
+  <div class="image-container"></div>
+
+  <div class="icon-links">
+  <a href="https://fansly.com" target="_blank">
+    <div class="icon-circle">
+      <img src="icon1.png" alt="Fansly Icon" />
+      <span class="tooltip">Fansly</span>
+    </div>
+  </a>
+  <a href="https://imgur.com/" target="_blank">
+    <div class="icon-circle">
+      <img src="icon2.png" alt="Info Icon" />
+      <span class="tooltip">Imgur</span>
+    </div>
+  </a>
+  <a href="https://throne.com/landing#Top" target="_blank">
+    <div class="icon-circle">
+      <img src="icon3.png" alt="Crown Icon" />
+      <span class="tooltip">Throne</span>
+    </div>
+  </a>
+</div>
+
+
+</div>
+
+
+
+  <!-- Scroll artificiel -->
+<div style="height: 10000px;"></div>
+
+<!-- Conteneur déclenché à la fin -->
+<div class="bottom-content" id="scroll-trigger">
+  <div class="bottom-message">
+    what did you expect to see ?
+  </div>
+
+  <div class="img-troll">
+    <img src="image05.jpg" alt="Troll" />
+  </div>
+</div>
+
+
+  </main>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = document.querySelector('[name="name"]').value;
+      const looking = document.querySelector('[name="looking_for"]').value;
+      const about = document.querySelector('[name="about_you"]').value;
+      const trap = document.querySelector('[name="traps_not_gay"]').checked ? "✔️" : "❌";
+
+      const payload = {
+        content: `📨 NOUVELLE FICHE ERP :\n🧑 VR Chat Name or ID: ${name}\n🎯 Looking for: ${looking}\n🗣 Something about you: ${about}\n✅ Traps are not gay: ${trap}`
+      };
+
+      try {
+        await fetch("https://discord.com/api/webhooks/1402546461518073857/i6UicOeDFVSLvBAz5Ba5vhMm2Bgfl1oXmGWTAidqDVgpD6UBzlNaD2P9STT_NIVysXRr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error("Erreur lors de l'envoi au webhook:", err);
+      }
+
+      window.location.href = "submitted.html";
+    });
+
+  window.addEventListener('DOMContentLoaded', () => {
+  const images = document.querySelectorAll('.owo-image-row img');
+  const lastImage = images[images.length - 1];
+  const content = document.querySelector('.site-content');
+
+  images.forEach((img, index) => {
+    img.style.animation = `fadeInUp 1.2s ease forwards`;
+    img.style.animationDelay = `${1 + index}s`;
+  });
+
+  // Une fois que la dernière image a terminé son animation, on affiche tout (form + checkbox + icônes)
+  lastImage.addEventListener('animationend', () => {
+    content.classList.remove('hidden');
+    content.classList.add('show');
+
+    // Ajout : rendre tous les éléments enfants visibles en même temps
+    const formElements = content.querySelectorAll('.form-animated input, .form-animated button, .checkbox-label, .icon-links');
+    formElements.forEach(el => {
+      el.classList.add('animate');
+    });
+  });
+});
+
+
+</script>
+
+
+<script>
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+
+    const distanceFromBottom = bodyHeight - (scrollTop + windowHeight);
+    const trigger = document.getElementById('scroll-trigger');
+
+    if (distanceFromBottom < 100) {
+      trigger.classList.add('visible');
+    } else {
+      trigger.classList.remove('visible');
+    }
+  });
+</script>
+
+<script>
+  document.getElementById('refresh-banner').addEventListener('click', () => {
+    location.reload(); // recharge la page
+  });
+</script>
+
+
+</body>
+</html>
