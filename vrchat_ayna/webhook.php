@@ -13,7 +13,8 @@ if (!isset($data['name'], $data['looking'], $data['about'], $data['trap'])) {
     exit;
 }
 
-$webhookURL = 'https://discord.com/api/webhooks/1402546461518073857/i6UicOeDFVSLvBAz5Ba5vhMm2Bgfl1oXmGWTAidqDVgpD6UBzlNaD2P9STT_NIVysXRr';
+$webhookURL = getenv('DISCORD_WEBHOOK_URL');
+
 
 $payload = json_encode([
     'content' => "📨 NOUVELLE FICHE ERP :\n🧑 VR Chat Name or ID: {$data['name']}\n🎯 Looking for: {$data['looking']}\n🗣 Something about you: {$data['about']}\n✅ Traps are not gay: {$data['trap']}"
